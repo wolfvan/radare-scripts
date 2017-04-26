@@ -18,6 +18,12 @@ def open_bin():
 	f.cmd("oo+")
 	return f
 
+def obtainKey(f):
+	addr = f.cmd("/c xor byte [eax + edi]")
+	key = addr.split("x")[4]
+	return str(key)
+
+
 
 def main(f):
 	a = f.cmd("iS~rodata")
@@ -28,7 +34,8 @@ def main(f):
 	f.cmd("s +252")
 	f.cmd("b 400")
 	#offset de 250
-	f.cmd("wox 22 ") #22 es la clave
+	key = obtainKey(f)
+	f.cmd("wox "+key) #22 es la clave
 	c = f.cmd("px 300")
 	print (f.cmd("ps 400"))
 
