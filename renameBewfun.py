@@ -5,7 +5,7 @@ import os
 
 #usage #!pipe python ./renameBewfun.py bew
 
-def rename(self):
+def rename(binary):
   self.r2.cmd("afn main 0x080480f8")
   self.r2.cmd("afn syscall2_res_connection 0x0805c070")
   self.r2.cmd("afn send_hostname 0x0804a779")
@@ -27,26 +27,16 @@ def rename(self):
   self.r2.cmd("afn UniqID 0x0804A928")
   
 
-def extractAddr(line):
-	if "0x90" in line:
-		addr = line.split(" ")[0]
-		return addr
-	else: return 0
 
-
-class import(object):
-	def __init__(self, bin):
-		self.r2 = r2pipe.open(bin)
     
-	def execute(self):
-		self.r2.cmd("aaa")
-		syscll = self.getSyscall()
-		self.writeSyscall(syscll)
-		self.rename()
+def execute(binary):
+	r2pipe.open(binary)
+	r2.cmd("aaa")
+	rename(bianry)
 
 
 
 if __name__ == "__main__":
 	binary = sys.argv[1]
-	armr2 = import(binary)
-	armr2.execute()
+	initt(binary)
+
